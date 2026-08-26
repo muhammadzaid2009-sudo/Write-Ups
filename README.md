@@ -6,7 +6,10 @@ A collection of my CTF write-ups, walkthroughs, and cybersecurity lab notes.
 
 <!-- WRITEUPS_START -->
 
-No write-ups added yet.
+### TryHackMe
+
+- [Agent T](./TryHackMe/Agent-T.md)
+- [RootMe CTF WriteUp](./TryHackMe/RootMe-CTF-WriteUp.md)
 
 <!-- WRITEUPS_END -->
 
