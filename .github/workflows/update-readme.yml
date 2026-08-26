@@ -1,0 +1,109 @@
+name: Update Write-Ups Index
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Generate Write-Up Index
+        shell: bash
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+
+          readme = Path("README.md")
+
+          start_marker = "<!-- WRITEUPS_START -->"
+          end_marker = "<!-- WRITEUPS_END -->"
+
+          sections = []
+
+          # Find platform directories
+          for platform in sorted(Path(".").iterdir()):
+              if not platform.is_dir():
+                  continue
+
+              # Ignore hidden directories
+              if platform.name.startswith("."):
+                  continue
+
+              # Ignore directories that are not platforms
+              if platform.name in ["node_modules"]:
+                  continue
+
+              writeups = []
+
+              # Find Markdown files directly inside the platform directory
+              for file in sorted(platform.glob("*.md")):
+                  # Don't include the platform's README.md
+                  if file.name.lower() == "readme.md":
+                      continue
+
+                  title = file.stem.replace("-", " ")
+
+                  writeups.append(
+                      f"- [{title}](./{platform.name}/{file.name})"
+                  )
+
+              if writeups:
+                  section = f"### {platform.name}\n\n"
+                  section += "\n".join(writeups)
+                  sections.append(section)
+
+          # Generate the automatic section
+          if sections:
+              generated = "\n\n".join(sections)
+          else:
+              generated = "No write-ups added yet."
+
+          new_section = (
+              f"{start_marker}\n\n"
+              f"{generated}\n\n"
+              f"{end_marker}"
+          )
+
+          # Read existing README
+          text = readme.read_text(encoding="utf-8")
+
+          # Replace the old automatic section
+          if start_marker in text and end_marker in text:
+              before = text.split(start_marker)[0]
+              after = text.split(end_marker, 1)[1]
+
+              text = before + new_section + after
+
+          else:
+              # Add the section if markers don't exist
+              text += (
+                  "\n\n## Write-Ups\n\n"
+                  + new_section
+                  + "\n"
+              )
+
+          readme.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Commit README changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add README.md
+
+          if git diff --cached --quiet; then
+            echo "No README changes detected."
+          else
+            git commit -m "Update write-ups index"
+            git push
+          fi
