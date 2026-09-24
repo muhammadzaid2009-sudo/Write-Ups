@@ -201,5 +201,6 @@ ff1fc4a81affcc7688cf89ae7dc6e0e1
 Github : https://muhammadzaid2009-sudo  
 Linkedin : https://www.linkedin.com/in/muhammad-zaid2009/  
 X : https://x.com/@muhammadzaid49  
-Medium : https://medium.com/@muhammadzaid2009  
+Medium : https://medium.com/@muhammadzaid2009 
+TryHackMe : https://tryhackme.com/p/muhammadzaid2009
 Instagram : https://instagram.com/muhammadddd_zaidddd
