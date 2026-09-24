@@ -11,6 +11,7 @@ A collection of my CTF write-ups, walkthroughs, and cybersecurity lab notes.
 - [Agent T](./TryHackMe/Agent-T.md)
 - [Relevant CTF WriteUp](./TryHackMe/Relevant-CTF-WriteUp.md)
 - [RootMe CTF WriteUp](./TryHackMe/RootMe-CTF-WriteUp.md)
+- [ToolsRus CTF](./TryHackMe/ToolsRus-CTF.md)
 
 <!-- WRITEUPS_END -->
 
