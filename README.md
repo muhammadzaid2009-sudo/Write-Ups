@@ -24,26 +24,12 @@ This repository documents my journey through various cybersecurity challenges, C
 
 <!-- WRITEUPS_START -->
 
-### 🟠 TryHackMe
+### TryHackMe
 
-| Challenge | Difficulty | Topics |
-|-----------|-----------|--------|
-| [Agent T](./TryHackMe/Agent-T.md) | Medium | Enumeration, Web Security |
-| [Relevant CTF WriteUp](./TryHackMe/Relevant-CTF-WriteUp.md) | Hard | Exploitation, Privilege Escalation |
-| [RootMe CTF WriteUp](./TryHackMe/RootMe-CTF-WriteUp.md) | Easy | Linux, Privilege Escalation |
-| [ToolsRus CTF](./TryHackMe/ToolsRus-CTF.md) | Medium | Enumeration, Web Security |
-
-### 🔴 Hack The Box
-
-*Coming soon...*
-
-### 🟡 PortSwigger Web Security Academy
-
-*Coming soon...*
-
-### 🟢 Other Labs
-
-*Coming soon...*
+- [Agent T](./TryHackMe/Agent-T.md)
+- [Relevant CTF WriteUp](./TryHackMe/Relevant-CTF-WriteUp.md)
+- [RootMe CTF WriteUp](./TryHackMe/RootMe-CTF-WriteUp.md)
+- [ToolsRus CTF](./TryHackMe/ToolsRus-CTF.md)
 
 <!-- WRITEUPS_END -->
 
