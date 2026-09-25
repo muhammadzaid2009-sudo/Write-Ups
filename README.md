@@ -71,60 +71,6 @@ Authentication         Authorization          Malware Analysis
 
 ---
 
-## 🔄 Auto-Update Feature
-
-This repository is designed to automatically index new write-ups as you add them!
-
-### How It Works
-1. Add a new write-up file to your platform folder (e.g., `TryHackMe/New-Challenge.md`)
-2. Push to the repository
-3. A GitHub Action automatically scans and updates the README
-4. Your new write-up appears in the index!
-
-### Setting Up Auto-Updates
-To enable automatic README updates with a GitHub Action:
-
-1. Create `.github/workflows/auto-update-readme.yml` with this content:
-```yaml
-name: Auto-Update README
-
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - '**.md'
-      - '!README.md'
-  workflow_dispatch:
-
-jobs:
-  update-readme:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - run: python3 .github/scripts/update_readme.py
-      - run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add README.md
-          if ! git diff --quiet; then
-            git commit -m "docs: auto-update write-ups list"
-            git push
-          fi
-```
-
-2. Add the update script at `.github/scripts/update_readme.py` (see the setup guide below)
-
----
-
-## 💡 Best Practices for Write-Ups
 
 ### File Structure
 ```
@@ -141,34 +87,7 @@ Write-Ups/
     └── Lab-Name.md
 ```
 
-### Write-Up Template
 
-Add this metadata at the top of each write-up for better organization:
-
-```markdown
-# Challenge Name
-
-- **Platform**: TryHackMe
-- **Difficulty**: Medium
-- **Topics**: Enumeration, Web Security
-- **Date Completed**: YYYY-MM-DD
-- **Tools Used**: nmap, Burp Suite, etc.
-
-## Description
-[Challenge overview and objectives]
-
-## Enumeration
-[Initial reconnaissance and scanning]
-
-## Exploitation
-[Vulnerability discovery and exploitation]
-
-## Privilege Escalation
-[Steps to gain higher privileges]
-
-## Lessons Learned
-[Key takeaways and remediation]
-```
 
 ### File Naming Convention
 - Use **hyphens** to separate words: `SQL-Injection-Lab.md`
