@@ -52,7 +52,7 @@ def get_writeups_by_platform():
                     content = f.read()
                     
                     # Look for metadata in markdown
-                    difficulty_match = re.search(r'[Dd]ifficulty[:\s]+(\w+)', content)
+                    difficulty_match = re.search(r'[Dd]ifficulty[:\s]+([\w]+)', content)
                     if difficulty_match:
                         difficulty = difficulty_match.group(1).capitalize()
                     
@@ -96,7 +96,7 @@ def generate_writeup_section(writeups):
         if platform not in writeups or not writeups[platform]:
             emoji = PLATFORM_EMOJI.get(platform, '🔷')
             lines.append(f"### {emoji} {platform}\n")
-            lines.append("*Coming soon...\*\n")
+            lines.append("*Coming soon...*\n")
     
     return '\n'.join(lines)
 
