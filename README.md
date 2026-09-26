@@ -1,6 +1,6 @@
 # 🔐 CTF & Security Write-Ups
 
-> Comprehensive repository containing step-by-step walkthroughs and technical documentation for CTF challenges and security labs.
+> This Repository contains CTF writeups with a detailed solution and learning outcomes. This Repository will  help you in your Cyber security Journey and you will learn when you stuck at some points in the CTF 
 
 ![Write-Ups Count](https://img.shields.io/badge/Write--Ups-4-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
@@ -89,16 +89,13 @@ Write-Ups/
 
 
 
-### File Naming Convention
-- Use **hyphens** to separate words: `SQL-Injection-Lab.md`
-- Be descriptive but concise: `Challenge-Name-CTF.md`
-- Avoid special characters: Use only alphanumeric and hyphens
-- Examples:
-  - ✅ `Agent-Sudor.md`
-  - ✅ `SQL-Injection-Basics.md`
-  - ❌ `Agent Sudor.md`
-  - ❌ `SQL@Injection#Basics.md`
+## Roadmap
 
+- First we will start from TryHackMe because it is a beggienr friendly 
+- Then we will move to the Portswigger Web security Academy because it's completetly free and the best resource for learning web security
+- Then we will move to the HackTheBox because it features advance labs and techniques and also it is paid
+- Then we will move to the other labs such as Pico CTF and OWASP Juice Shop 
+- Then we will move toward the home lab setup for real world attack because we don't have authority to attack a target to whom we have not the permission so we will perform all of them attacks on the authorized lab setup 
 ---
 
 ## ⚖️ Disclaimer
