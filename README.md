@@ -1,10 +1,10 @@
 # 🔐 CTF & Security Write-Ups
 
-> This Repository contains CTF writeups with a detailed solution and learning outcomes. This Repository will  help you in your Cyber security Journey and you will learn when you stuck at some points in the CTF 
+> This Repository contains CTF writeups with a detailed solution and with learning outcomes. This Repository will  help you in your Cyber security Journey and you will learn when you stuck at some points in the CTF 
 
 ![Write-Ups Count](https://img.shields.io/badge/Write--Ups-4-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Last Updated](https://img.shields.io/badge/Last%20Updated-2024-brightgreen)
+![Last Updated](https://img.shields.io/badge/Last%20Updated-2026-brightgreen)
 
 ---
 
