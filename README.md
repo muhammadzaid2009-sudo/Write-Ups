@@ -16,7 +16,7 @@ This repository documents my journey through various cybersecurity challenges, C
 - **Practical Focus**: Real-world vulnerability analysis and exploitation
 - **Detailed Walkthrough**: Step-by-step solutions with technical explanations
 - **Multiple Platforms**: TryHackMe, Hack The Box, PortSwigger, and more
-- **Auto-Updated**: Latest write-ups are automatically indexed
+
 
 ---
 
