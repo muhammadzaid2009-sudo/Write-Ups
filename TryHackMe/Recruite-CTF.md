@@ -1,204 +1,496 @@
-# TryHackMe Recruit-CTF Writeup | Muhammad Zaid
-Recruit-CTF By TryHackMe is a solid web application pentesting challenge to test your skills in web.
+# 🛡️ TryHackMe: Recruit-CTF
 
-the link to room is : https://tryhackme.com/room/recruitwebchallenge
+A hands-on web application security challenge focused on **reconnaissance, directory enumeration, Local File Inclusion (LFI), credential disclosure, SQL injection, and application privilege escalation**.
 
-<img width="1100" height="510" alt="image" src="https://github.com/user-attachments/assets/9eb7b832-191c-491b-993e-6072662d145a" />
+> ⚠️ **Disclaimer:** This writeup is based on an authorized TryHackMe lab environment and is intended for educational purposes.
 
-## Prerequisites
-- SQL injection
-- SQLMap
-- Burpsuite
-- Nmap
-- Directory Brute Forcing
+---
 
-## Story
-> Recruit has just launched its new recruitment portal, allowing HR staff to manage candidate applications and administrators to oversee hiring decisions. While the platform appears functional, management suspects that security may have been overlooked during development. Your task is to assess the application like a real attacker, mapping its structure, abusing exposed functionality, and exploiting vulnerabilities.
-> Can you gain an initial foothold, escalate your access, and ultimately log in as the administrator?
+## 📋 Table of Contents
 
-## Step 1:
+* Overview.
+* Attack Path.
+* Reconnaissance.
+* Web Application Enumeration
+* Directory Enumeration
+* Application Information Discovery
+* Local File Inclusion
+* Authenticated Access
+* SQL Injection
+* Database Enumeration
+* Administrator Access
+* Vulnerability Analysis
+* Lessons Learned
+* Further Investigation
+* Conclusion
 
-Reconasaince using namap before exploiting target you should know what services are running there
+---
 
-`
+## 🎯 Overview
+
+| Information            | Details                                   |
+| ---------------------- | ----------------------------------------- |
+| **Platform**           | TryHackMe                                 |
+| **Challenge**          | Recruit-CTF                               |
+| **Category**           | Web Application Security                  |
+| **Target**             | `10.112.173.245`                          |
+| **Primary Techniques** | LFI, Credential Disclosure, SQL Injection |
+
+### Objective
+
+The objective was to enumerate the target, identify vulnerabilities in the web application, obtain initial authenticated access, and ultimately gain administrator access.
+
+---
+
+# 🔗 Attack Path
+
+The compromise followed this attack chain:
+
+```text
+Network Reconnaissance
+        ↓
+Web Application Enumeration
+        ↓
+Directory Discovery
+        ↓
+Access API Discovery
+        ↓
+Local File Inclusion
+        ↓
+Configuration File Disclosure
+        ↓
+HR Credentials
+        ↓
+Authenticated Access
+        ↓
+SQL Injection
+        ↓
+Database Enumeration
+        ↓
+Admin Credentials
+        ↓
+Administrator Access
+```
+
+### Key Vulnerabilities
+
+* Local File Inclusion
+* Sensitive credential disclosure
+* SQL Injection
+* Insecure credential storage/exposure
+
+---
+
+# 🔎 Reconnaissance
+
+## Nmap Scan
+
+I started by identifying the services exposed by the target.
+
+```bash
 nmap -A -T4 10.112.173.245 -vv -oN scan.txt
-`
-we got the output
-
-```
-# Nmap 7.99 scan initiated Sun Sep 27 18:57:36 2026 as: /usr/lib/nmap/nmap --privileged -A -T4 -vv -oN scan.txt 10.112.173.245
-Increasing send delay for 10.112.173.245 from 0 to 5 due to 112 out of 279 dropped probes since last increase.
-Increasing send delay for 10.112.173.245 from 5 to 10 due to 11 out of 27 dropped probes since last increase.
-Nmap scan report for 10.112.173.245
-Host is up, received reset ttl 62 (0.24s latency).
-Scanned at 2026-09-27 18:57:37 PKT for 59s
-Not shown: 997 closed tcp ports (reset)
-PORT   STATE SERVICE REASON         VERSION
-22/tcp open  ssh     syn-ack ttl 62 OpenSSH 8.2p1 Ubuntu 4ubuntu0.7 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey: 
-|   3072 80:56:00:5a:2a:1a:b1:ff:4e:c6:bb:09:a3:50:c8:93 (RSA)
-| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/3U2Qk1d/Fc0O16kC1KDXNuMjrYxRZnj6IrjEaO/gU94LaLUwrEIuvtcUfJIriJebnNqeZzHh6HUyNqfiuoxGuk6RzmPXdbFFFaKczB9PZwrmvpFVPepRCM6X5QLXO7wlhn7Gx84ReH/KUx2vMmPlxcjrP2Ralnc5+PKo4tEdHvCQnU0vxtz+IN8yzJQ/o/VOQTfcL+k7RrgiyssSxYPKC3nRr5hfhbXIvLGCV7zGJTHicOpmIPXTBK1essxInM1uHC9KUAvptvtiTh8HKkRibS8DosZ0SiJL6d5O0NMrNIECsal76reHbvSXUXW+W01EkQJW91+bUnKge0MkRBaO7iWYbXXBeia4Gh78TEBtAxyVAumIH9TdoNqfXw/ryiTZR25MF/erw6U6v92gclmx0YvRFeJ+/Z5NSLUpsbTiaB7exCNxq6Y7V9Cn4NEI2rANEzmh+lVKMvH4yHmihAQaNBfB9BCbzeeI3SEI3PJ74gItcT8mPRSpBFaJw6bQyNs=
-|   256 cc:78:fa:a9:2f:17:51:8c:52:c4:ea:33:b5:64:87:b8 (ECDSA)
-| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDBbMix68BdpZZn1ejBEo9n0xgeXhDpPgQ78ttiRWm5kq2DwZSD1jBFhl92yLPQCL8N5Q8dl+1TsPjHbefKj2gg=
-|   256 11:46:82:6e:76:ac:58:59:a5:6d:bc:37:c9:f6:f1:50 (ED25519)
-|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDvJf8lMUKHWqrrwC5kOoipTJWOK3Yg4NYyQ1+MTwkGl
-53/tcp open  domain  syn-ack ttl 62 ISC BIND 9.16.1 (Ubuntu Linux)
-| dns-nsid: 
-|_  bind.version: 9.16.1-Ubuntu
-80/tcp open  http    syn-ack ttl 62 Apache httpd 2.4.41 ((Ubuntu))
-| http-cookie-flags: 
-|   /: 
-|     PHPSESSID: 
-|_      httponly flag not set
-|_http-title: Recruit
-|_http-server-header: Apache/2.4.41 (Ubuntu)
-| http-methods: 
-|_  Supported Methods: GET HEAD POST OPTIONS
-No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
-TCP/IP fingerprint:
-OS:SCAN(V=7.99%E=4%D=9/27%OT=22%CT=1%CU=36370%PV=Y%DS=3%DC=T%G=Y%TM=6AB9210
-OS:C%P=x86_64-pc-linux-gnu)SEQ(SP=100%GCD=1%ISR=10D%TI=Z%CI=Z%II=I%TS=A)SEQ
-OS:(SP=105%GCD=1%ISR=10A%TI=Z%CI=Z%II=I%TS=A)SEQ(SP=107%GCD=1%ISR=10A%TI=Z%
-OS:CI=Z%II=I%TS=A)SEQ(SP=107%GCD=1%ISR=10F%TI=Z%CI=Z%II=I%TS=A)SEQ(SP=F5%GC
-OS:D=1%ISR=10F%TI=Z%CI=Z%II=I%TS=A)OPS(O1=M4E8ST11NW7%O2=M4E8ST11NW7%O3=M4E
-OS:8NNT11NW7%O4=M4E8ST11NW7%O5=M4E8ST11NW7%O6=M4E8ST11)WIN(W1=F4B3%W2=F4B3%
-OS:W3=F4B3%W4=F4B3%W5=F4B3%W6=F4B3)ECN(R=Y%DF=Y%T=40%W=F507%O=M4E8NNSNW7%CC
-OS:=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T
-OS:=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=
-OS:0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=
-OS:Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=
-OS:G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
-
-Uptime guess: 11.136 days (since Wed Sep 16 15:42:07 2026)
-Network Distance: 3 hops
-TCP Sequence Prediction: Difficulty=245 (Good luck!)
-IP ID Sequence Generation: All zeros
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-
-TRACEROUTE (using port 80/tcp)
-HOP RTT       ADDRESS
-1   340.70 ms 192.168.128.1
-2   ...
-3   340.89 ms 10.112.173.245
-
-Read data files from: /usr/share/nmap
-OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-# Nmap done at Sun Sep 27 18:58:36 2026 -- 1 IP address (1 host up) scanned in 60.23 seconds
 ```
 
-port 80 open there meaning that a web service is running there
+### Relevant Results
 
-<img width="1100" height="468" alt="image" src="https://github.com/user-attachments/assets/a1fa4360-b433-4b01-a7c0-f85e55c68316" />
+| Port     | Service | Version         |
+| -------- | ------- | --------------- |
+| `22/tcp` | SSH     | OpenSSH 8.2p1   |
+| `53/tcp` | DNS     | ISC BIND 9.16.1 |
+| `80/tcp` | HTTP    | Apache 2.4.41   |
 
-i saw a web page that is asking for credentials
+> **Note:** Only the relevant results are shown here. The complete scan output was saved to `scan.txt`.
 
-i saw the page source i didn’t find anything now we can perform a directory brute force attack
+### Analysis
 
-## Step 2 using Gobuster to find hidden directories
+The HTTP service on port `80` was particularly interesting because the challenge focused on web application security.
 
-`
-gobuster dir -u http://10.112.173.245 -w /usr/share/wordlists/dirb/common.txt -o recon.txt
-`
-<img width="1100" height="463" alt="image" src="https://github.com/user-attachments/assets/544e5818-5c8a-4ced-a4d2-6615dd30c706" />
+I therefore prioritized the web application for further enumeration.
 
-i saw some important directories
+---
 
-i started visiting every directory one by one
+# 🌐 Web Application Enumeration
 
-start with mail
+Opening the application in a browser presented a login interface.
 
-<img width="1100" height="504" alt="image" src="https://github.com/user-attachments/assets/c4f348b0-d2de-453f-9ccb-472ee16c66b6" />
+I first inspected the page source for potentially useful information such as:
 
-i got some important details there the username is `hr` and the password is stored in the `config.php` file.
+* Hidden endpoints
+* HTML comments
+* Hardcoded credentials
+* JavaScript references
+* Interesting parameters
 
-there is a `access API` features in the web page that we visit
+No immediately useful information was identified.
 
-<img width="1100" height="511" alt="image" src="https://github.com/user-attachments/assets/4c69315d-8efb-4174-8a23-621a8ef72f23" />
+Since the visible interface exposed limited functionality, I moved to directory enumeration.
 
-we can perform the LFI (local file inclusion) attack
+---
 
-Local File Inclusion (LFI) is a critical web application security vulnerability that allows attackers to trick a server into including and executing local files stored on the same machine
+# 📁 Directory Enumeration
 
-so from here we can execute the config.php file
+I used Gobuster to identify directories and resources that were not directly linked from the main application.
 
-`
-http://10.112.173.245//file.php?cv=file:///var/www/html/config.php
-`
-using this url.
+```bash
+gobuster dir \
+-u http://10.112.173.245 \
+-w /usr/share/wordlists/dirb/common.txt \
+-o recon.txt
+```
 
-<img width="1100" height="531" alt="image" src="https://github.com/user-attachments/assets/7e9f9601-ad03-41dc-8ddc-4a85f00ecba0" />
+### Results
 
-we got the hr password also
-`
-hrpassword123
-`
-now we have HR credentials and now we can log into as hr
+The enumeration revealed several interesting directories.
 
-<img width="1100" height="547" alt="image" src="https://github.com/user-attachments/assets/c9514215-4a35-47e8-99a2-b2d786fb62ef" />
+I manually investigated the discovered endpoints rather than assuming that every result was useful.
 
-now we have obtained the user flag now its time to escalate our priveleges
+One of the interesting locations was:
 
-Escalating Priveleges by performing the SQLi attack
+```text
+/mail
+```
 
-you can simply just search something and then after searching add `'` single quote at the end of your url and capture the request using Burpsuite
+This provided additional application functionality to investigate.
 
-<img width="1100" height="493" alt="image" src="https://github.com/user-attachments/assets/b0d9dfb2-2c67-4e5a-a959-62712069e2a9" />
+---
 
-<img width="1100" height="282" alt="image" src="https://github.com/user-attachments/assets/833d947a-e127-4fb9-87d0-0492adae29a4" />
+# 🔍 Application Information Discovery
 
-and right click the request and click and save the file
+While investigating the discovered functionality, I identified an HR account:
 
-for this we are going to use SQLMap tool that is the most powerful tools for Performing SQL Injection attacks
+```text
+Username: hr
+```
 
-## Using SQL Map
+The application also exposed an **Access API** feature.
 
-`
+At this point, I examined how the API handled user-controlled file paths.
+
+### Why This Was Interesting
+
+Functionality that allows users to specify a file to retrieve can potentially introduce **Local File Inclusion (LFI)** or local file disclosure if the application does not properly validate the supplied path.
+
+This led me to test whether the API could be manipulated to access files stored on the server.
+
+---
+
+# 📂 Local File Inclusion
+
+## Identifying the Vulnerability
+
+The application accepted a file parameter through the API.
+
+I tested whether the parameter could be manipulated to retrieve a local file from the target.
+
+The following request successfully accessed a local configuration file:
+
+```text
+http://10.112.173.245/file.php?cv=file:///var/www/html/config.php
+```
+
+### Result
+
+The application disclosed the contents of:
+
+```text
+/var/www/html/config.php
+```
+
+### Why This Mattered
+
+Configuration files frequently contain sensitive application information, including:
+
+* Database credentials
+* Application secrets
+* Service credentials
+* Configuration parameters
+
+In this case, the disclosed configuration exposed credentials for the HR account.
+
+```text
+Username: hr
+Password: hrpassword123
+```
+
+> 🔑 **Finding:** The LFI vulnerability resulted in sensitive credential disclosure.
+
+---
+
+# 🔐 Authenticated Access
+
+Using the credentials obtained from the exposed configuration file, I authenticated to the application as the HR user.
+
+```text
+Username: hr
+Password: hrpassword123
+```
+
+This provided access to functionality that was not available from the unauthenticated interface.
+
+### Next Objective
+
+The next step was to determine whether the authenticated application contained additional vulnerabilities that could allow access to a higher-privileged account.
+
+I therefore continued enumerating the authenticated functionality.
+
+---
+
+# 💉 SQL Injection
+
+## Identifying the Injection Point
+
+While investigating the authenticated application, I identified a search functionality that accepted user-controlled input.
+
+I initially tested the parameter manually by modifying the request and observing how the application responded.
+
+A single quote was added to the parameter:
+
+```text
+'
+```
+
+The resulting change in application behavior suggested that the input was being incorporated into a backend SQL query.
+
+### Burp Suite
+
+I captured the request using Burp Suite and saved it as:
+
+```text
+req.txt
+```
+
+The saved request could then be supplied directly to SQLMap for further database enumeration.
+
+> **Finding:** The search functionality appeared vulnerable to SQL injection.
+
+---
+
+# 🗄️ Database Enumeration
+
+## Enumerating Databases
+
+I used the captured request with SQLMap:
+
+```bash
 sqlmap -r req.txt --dbs
-`
-the sqlmap will read the request in the file req.txt that we saved from burpsuite and — dbs will show us all the databases availbe
-<img width="1100" height="471" alt="image" src="https://github.com/user-attachments/assets/01f7c75b-76af-4ad8-8642-e6cb63145b58" />
+```
 
-the databse we got is `recruit_db`
+The application exposed the following relevant database:
 
-now we have the databse name now next step is to enumerate the table in the database
+```text
+recruit_db
+```
 
-`sqlmap -r req.txt -D recruit_db --tables`
-now we are telling to sqlmap that the databse is recruit_db now enumerate the tables
+---
 
-<img width="1100" height="551" alt="image" src="https://github.com/user-attachments/assets/0f565472-b34e-4c96-b458-753e04b760c8" />
+## Enumerating Tables
 
-the table is `users`
-now we want to dump all the data that is int he table
+I then enumerated the tables within `recruit_db`:
 
-`sqlmap -r req.txt -D recruit_db -T users --dump`
+```bash
+sqlmap -r req.txt -D recruit_db --tables
+```
 
-<img width="1100" height="591" alt="image" src="https://github.com/user-attachments/assets/2989340d-85ea-4c24-a801-3595fe8520fe" />
+The `users` table was particularly interesting because it was likely to contain application account information.
 
-now we got the admin credentials which are
+---
 
-`
-username = admin
-pass = admin@001admin
-`
-now log out from the hr portal and log in as admin
+## Dumping the Users Table
 
-<img width="1100" height="474" alt="image" src="https://github.com/user-attachments/assets/c2ace804-c8b0-4f6d-8d63-d63a060dc68a" />
+I enumerated the contents of the `users` table:
 
-and you got the flag
+```bash
+sqlmap -r req.txt -D recruit_db -T users --dump
+```
 
-congratulations!!!!!
+The table contained administrator credentials:
 
-lab has been solved
+```text
+Username: admin
+Password: admin@001admin
+```
 
-i hope that it will help you
+> 🔑 **Finding:** SQL injection allowed database enumeration and extraction of administrator credentials.
 
-Happ hacking!!!!!!!!!!!!!!!!!!!!!
+---
 
-## Connect with me 
-TryHackMe : https://tryhackme.com/p/muhmmadzaid2009  
-Linkedin : https://www.linkedin.com/in/muhammad-zaid2009/  
-X : https://x.com/muhammadzaid49  
-Medium : https://medium.com/@muhammadzaid2009
+# 👑 Administrator Access
 
+Using the discovered administrator credentials, I returned to the application's login page and authenticated as the administrator.
 
+```text
+Username: admin
+Password: admin@001admin
+```
 
+This provided the required administrator-level access and allowed me to retrieve the final flag.
+
+> ✅ **Objective completed:** Administrator access was successfully obtained.
+
+---
+
+# 🛡️ Vulnerability Analysis
+
+## 1. Local File Inclusion
+
+**Type:** Local File Inclusion / Local File Disclosure
+
+### Root Cause
+
+The application allowed a user-controlled file path to be supplied to the server without sufficient validation or restriction.
+
+### Impact
+
+An attacker could potentially access sensitive files stored on the server.
+
+In this challenge, the vulnerability resulted in the disclosure of a configuration file containing valid credentials.
+
+### Recommended Remediation
+
+* Avoid accepting arbitrary file paths from users.
+* Use an allowlist of permitted files where file retrieval is required.
+* Validate and canonicalize file paths.
+* Prevent access to sensitive application configuration files.
+* Store secrets outside web-accessible locations.
+
+---
+
+## 2. SQL Injection
+
+**Type:** SQL Injection
+
+### Root Cause
+
+The application's search functionality incorporated user-controlled input into a database query without sufficient protection against SQL injection.
+
+### Impact
+
+The vulnerability allowed database enumeration and extraction of sensitive account information.
+
+An attacker could potentially:
+
+* Enumerate databases
+* Enumerate tables
+* Read sensitive records
+* Extract credentials
+* Compromise additional application accounts
+
+### Recommended Remediation
+
+* Use parameterized queries / prepared statements.
+* Avoid dynamically constructing SQL queries with untrusted input.
+* Apply strict input validation where appropriate.
+* Restrict database account privileges.
+* Avoid storing passwords in plaintext.
+
+---
+
+# 📊 Findings Summary
+
+|  # | Finding              | Category               | Impact                           |
+| -: | -------------------- | ---------------------- | -------------------------------- |
+|  1 | Local File Inclusion | File Handling          | Configuration file disclosure    |
+|  2 | Credential Exposure  | Information Disclosure | HR account compromise            |
+|  3 | SQL Injection        | Injection              | Database compromise              |
+|  4 | Credential Exposure  | Sensitive Data         | Administrator account compromise |
+
+---
+
+# 📚 Lessons Learned
+
+## Technical Lessons
+
+* Web applications should be thoroughly enumerated before exploitation.
+* Exposed APIs can introduce additional attack surfaces that are not obvious from the main interface.
+* Configuration files can contain highly sensitive credentials.
+* User-controlled file paths should always be treated as untrusted input.
+* SQL injection can expose application data far beyond the initially vulnerable parameter.
+* Credentials discovered during one phase of an assessment can become the starting point for the next phase.
+
+## Methodology Lessons
+
+One of the most important lessons from this machine was that the vulnerabilities were connected.
+
+The initial foothold did not directly provide administrator access.
+
+Instead, information obtained during one stage guided the next stage:
+
+```text
+Directory Enumeration
+        ↓
+API Discovery
+        ↓
+LFI
+        ↓
+Credential Disclosure
+        ↓
+HR Account
+        ↓
+SQL Injection
+        ↓
+Database Enumeration
+        ↓
+Administrator Credentials
+        ↓
+Administrator Access
+```
+
+This demonstrates why enumeration should be treated as an **iterative process** rather than a single step performed only at the beginning of an assessment.
+
+---
+
+# 🔬 Further Investigation
+
+If this were an authorized real-world assessment rather than a controlled lab, I would also investigate:
+
+* Whether the LFI could access files outside the web application's directory.
+* Whether other sensitive configuration files were exposed.
+* Whether the disclosed credentials were reused elsewhere.
+* Whether the SQL injection affected additional application functionality.
+* Whether authorization controls properly separated HR and administrator roles.
+* Whether sensitive credentials were securely stored in the database.
+* Whether other API endpoints exposed similar file-handling functionality.
+
+---
+
+# 📝 Conclusion
+
+Recruit-CTF demonstrated how multiple weaknesses can be chained together to compromise a web application.
+
+The attack began with reconnaissance and directory enumeration, which led to the discovery of an Access API. Testing this functionality revealed a Local File Inclusion vulnerability that exposed a configuration file containing valid HR credentials.
+
+After obtaining authenticated access, further application enumeration revealed a SQL injection vulnerability. SQLMap was then used to enumerate the database and extract administrator credentials, ultimately leading to administrator access.
+
+The key lesson was not a particular tool or payload, but the process of continuously using information discovered during enumeration to determine the next investigation step.
+
+### Final Attack Chain
+
+**LFI → Credential Disclosure → HR Access → SQL Injection → Database Enumeration → Administrator Credentials → Administrator Access**
+
+---
+
+# 🛠️ Tools Used
+
+* [Nmap](https://nmap.org/)
+* [Gobuster](https://github.com/OJ/gobuster)
+* [Burp Suite](https://portswigger.net/burp)
+* [SQLMap](https://sqlmap.org/)
+
+---
+
+# 🔗 References
+
+* [TryHackMe - Recruit-CTF](https://tryhackme.com/)
+* [OWASP - Local File Inclusion](https://owasp.org/www-community/attacks/Path_Traversal)
+* [OWASP - SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection)
+
+---
+
+## 👤 Author
+
+**Muhammad Zaid**
+
+* [GitHub](https://github.com/muhammadzaid2009-sudo)
+* [LinkedIn](https://www.linkedin.com/in/muhammad-zaid2009/)
+* [TryHackMe](https://tryhackme.com/p/muhammadzaid2009)
+* [Medium](https://medium.com/@muhammadzaid2009)
