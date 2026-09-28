@@ -27,6 +27,7 @@ This repository documents my journey through various cybersecurity challenges, C
 ### TryHackMe
 
 - [Agent T](./TryHackMe/Agent-T.md)
+- [Recruite CTF](./TryHackMe/Recruite-CTF.md)
 - [Relevant CTF WriteUp](./TryHackMe/Relevant-CTF-WriteUp.md)
 - [RootMe CTF WriteUp](./TryHackMe/RootMe-CTF-WriteUp.md)
 - [ToolsRus CTF](./TryHackMe/ToolsRus-CTF.md)
