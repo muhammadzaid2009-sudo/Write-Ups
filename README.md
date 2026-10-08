@@ -30,6 +30,7 @@ This repository documents my journey through various cybersecurity challenges, C
 - [Recruite CTF](./TryHackMe/Recruite-CTF.md)
 - [Relevant CTF WriteUp](./TryHackMe/Relevant-CTF-WriteUp.md)
 - [RootMe CTF WriteUp](./TryHackMe/RootMe-CTF-WriteUp.md)
+- [Simple CTF](./TryHackMe/Simple-CTF.md)
 - [Support CTF](./TryHackMe/Support-CTF.md)
 - [ToolsRus CTF](./TryHackMe/ToolsRus-CTF.md)
 
