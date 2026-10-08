@@ -108,6 +108,7 @@ i search for the exploit
 <img width="1510" height="782" alt="image" src="https://github.com/user-attachments/assets/f8b8a365-296b-4301-81bd-53d6dcfdfd67" />
 
 the CVE number is this `CVE-2019-9053 `
+CVE-2019-9053 is an unauthenticated SQL injection vulnerability affecting vulnerable versions of CMS Made Simple. The vulnerability can be abused to extract information from the application's database, including credential-related data.
 we can use this exploit to get initial access in the server 
 
 ## Step 3 Exploitation
