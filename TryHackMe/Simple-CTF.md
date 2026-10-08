@@ -441,11 +441,11 @@ which was `sunbat`
 ## Step 6 Escalating Privileges
 currently we are not the root user instead we are the normal user with limited permissions so we have to escalate our privileges from normal user to root user 
 
-for this we can run the command `sudo -l` this command will return the SUID binaries meaning that we can run these binaries as a root user even if we are not 
+for this we can run the command sudo -l shows what commands the current user is allowed to execute through sudo, including commands that may run with elevated privileges.
 <img width="1045" height="73" alt="image" src="https://github.com/user-attachments/assets/425e3b16-56b6-4721-b753-12a55f6b03aa" />
 
-i checked the SUID binaries and i notice that if i run the vim binary so it will return me a root shell so i researched about it.
-i asked to perplexity ai and it gave me result
+i checked the SUID binaries and i notice that if i run the vim binary.
+I researched the allowed sudo command and identified Vim as a potential privilege-escalation vector.
 <img width="677" height="402" alt="image" src="https://github.com/user-attachments/assets/2b258a6b-9338-44b5-80e2-1f2638952170" />
 
 ```bash
@@ -485,5 +485,20 @@ Q9 : What can you leverage to spawn a privileged shell?
 Ans : vim
 
 Q10 : W3ll d0n3. You made it!
+
+## Step 8 Key Takeways 
+
+## Key Takeaways
+
+- Always perform service enumeration before attacking the web application.
+- robots.txt can reveal interesting application paths.
+- Identify application versions during web enumeration.
+- Research known vulnerabilities associated with exposed software versions.
+- Understand the difference between online credential extraction and offline hash cracking.
+- Non-standard SSH ports should still be enumerated.
+- Always check sudo permissions after obtaining a shell.
+
+
+
 
 I hope this will help you!!!
