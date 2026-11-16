@@ -38,17 +38,15 @@ The goal is to make each write-up useful beyond the final result: explain the ap
 
 ### TryHackMe
 
-| Room / Challenge | Write-up |
-|---|---|
-| Agent T | [Read walkthrough](./TryHackMe/Agent-T.md) |
-| Operation Promotion | [Read walkthrough](./TryHackMe/Operation-Promotion.md) |
-| Recruite CTF | [Read walkthrough](./TryHackMe/Recruite-CTF.md) |
-| Relevant CTF | [Read walkthrough](./TryHackMe/Relevant-CTF-WriteUp.md) |
-| RootMe CTF | [Read walkthrough](./TryHackMe/RootMe-CTF-WriteUp.md) |
-| Silent Monitor | [Read walkthrough](./TryHackMe/Silent-Monitor-CTF.md) |
-| Simple CTF | [Read walkthrough](./TryHackMe/Simple-CTF.md) |
-| Support CTF | [Read walkthrough](./TryHackMe/Support-CTF.md) |
-| ToolsRus CTF | [Read walkthrough](./TryHackMe/ToolsRus-CTF.md) |
+- [Agent T](./TryHackMe/Agent-T.md)
+- [Operation Promotion](./TryHackMe/Operation-Promotion.md)
+- [Recruite CTF](./TryHackMe/Recruite-CTF.md)
+- [Relevant CTF WriteUp](./TryHackMe/Relevant-CTF-WriteUp.md)
+- [RootMe CTF WriteUp](./TryHackMe/RootMe-CTF-WriteUp.md)
+- [Silent Monitor CTF](./TryHackMe/Silent-Monitor-CTF.md)
+- [Simple CTF](./TryHackMe/Simple-CTF.md)
+- [Support CTF](./TryHackMe/Support-CTF.md)
+- [ToolsRus CTF](./TryHackMe/ToolsRus-CTF.md)
 
 <!-- WRITEUPS_END -->
 
