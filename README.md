@@ -1,139 +1,114 @@
-# 🔐 CTF & Security Write-Ups
+<!--
+  Write-Ups | Muhammad Zaid
+  A collection of notes and walkthroughs from authorized cybersecurity labs.
+-->
 
-> This Repository contains CTF writeups with a detailed solution and with learning outcomes. This Repository will  help you in your Cyber security Journey and you will learn when you stuck at some points in the CTF 
+<div align="center">
 
-![Write-Ups Count](https://img.shields.io/badge/Write--Ups-4-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Last Updated](https://img.shields.io/badge/Last%20Updated-2026-brightgreen)
+# ◈ WRITE-UPS
+
+### CTFs · Security Labs · Technical Notes
+
+**A practical learning journal documenting the process, not just the flag.**
+
+<br>
+
+[![TryHackMe](https://img.shields.io/badge/Platform-TryHackMe-C11111?style=flat-square&logo=tryhackme&logoColor=white)](./TryHackMe/)
+[![Write-ups](https://img.shields.io/badge/Content-CTF%20Write--ups-2F81F7?style=flat-square)](#-write-ups)
+[![License](https://img.shields.io/badge/License-MIT-238636?style=flat-square)](./LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/muhammadzaid2009-sudo/Write-Ups?style=flat-square&color=E3B341)](https://github.com/muhammadzaid2009-sudo/Write-Ups/stargazers)
+
+<br>
+
+[Explore write-ups](#-write-ups) · [About this repo](#-about) · [Connect](#-connect)
+
+</div>
 
 ---
 
-## 📋 Overview
+## / ABOUT
 
-This repository documents my journey through various cybersecurity challenges, CTF competitions, and security labs. Each write-up provides detailed explanations of vulnerabilities, exploitation techniques, and remediation strategies for real-world security scenarios.
+This repository is my collection of **CTF walkthroughs and cybersecurity lab notes**. I use it to document what I learn while practising enumeration, web security, Linux, privilege escalation, and other security concepts in authorized environments.
 
-### ✨ Key Highlights
-- **Practical Focus**: Real-world vulnerability analysis and exploitation
-- **Detailed Walkthrough**: Step-by-step solutions with technical explanations
-- **Multiple Platforms**: TryHackMe, Hack The Box, PortSwigger, and more
-- **Auto-Updated**: Latest write-ups are automatically indexed
+The goal is to make each write-up useful beyond the final result: explain the approach, record important findings, and capture the lessons worth remembering.
 
----
-
-## 📚 Write-Ups
+## / WRITE-UPS
 
 <!-- WRITEUPS_START -->
 
 ### TryHackMe
 
-- [Agent T](./TryHackMe/Agent-T.md)
-- [Operation Promotion](./TryHackMe/Operation-Promotion.md)
-- [Recruite CTF](./TryHackMe/Recruite-CTF.md)
-- [Relevant CTF WriteUp](./TryHackMe/Relevant-CTF-WriteUp.md)
-- [RootMe CTF WriteUp](./TryHackMe/RootMe-CTF-WriteUp.md)
-- [Silent Monitor CTF](./TryHackMe/Silent-Monitor-CTF.md)
-- [Simple CTF](./TryHackMe/Simple-CTF.md)
-- [Support CTF](./TryHackMe/Support-CTF.md)
-- [ToolsRus CTF](./TryHackMe/ToolsRus-CTF.md)
+| Room / Challenge | Write-up |
+|---|---|
+| Agent T | [Read walkthrough](./TryHackMe/Agent-T.md) |
+| Operation Promotion | [Read walkthrough](./TryHackMe/Operation-Promotion.md) |
+| Recruite CTF | [Read walkthrough](./TryHackMe/Recruite-CTF.md) |
+| Relevant CTF | [Read walkthrough](./TryHackMe/Relevant-CTF-WriteUp.md) |
+| RootMe CTF | [Read walkthrough](./TryHackMe/RootMe-CTF-WriteUp.md) |
+| Silent Monitor | [Read walkthrough](./TryHackMe/Silent-Monitor-CTF.md) |
+| Simple CTF | [Read walkthrough](./TryHackMe/Simple-CTF.md) |
+| Support CTF | [Read walkthrough](./TryHackMe/Support-CTF.md) |
+| ToolsRus CTF | [Read walkthrough](./TryHackMe/ToolsRus-CTF.md) |
 
 <!-- WRITEUPS_END -->
 
----
+> New walkthroughs will be added as I complete and document more labs.
 
-## 🏷️ Topics Covered
+## / WHAT YOU'LL FIND
 
-```
-Enumeration              Privilege Escalation   Web Security           
-Exploitation           Network Security        Linux Security         
-Cryptography           Password Cracking       SQL Injection          
-Command Injection      Cross-Site Scripting    API Security           
-Authentication         Authorization          Malware Analysis       
-```
+<div align="center">
 
----
+| Focus area | What I document |
+|:---|:---|
+| **Reconnaissance** | Enumeration methodology and service discovery |
+| **Web security** | Common web vulnerabilities and testing observations |
+| **Linux security** | System exploration and privilege-escalation concepts |
+| **Windows & AD** | Windows environments and directory-service fundamentals |
+| **Problem solving** | Tool usage, troubleshooting, and lessons learned |
 
-## 🛠️ Platforms
+</div>
 
-| Platform | Status |
-|----------|--------|
-| 🟠 **TryHackMe** | 4 Write-Ups |
-| 🔴 **Hack The Box** | In Progress |
-| 🟡 **PortSwigger Web Security Academy** | In Progress |
-| 🟢 **Other Authorized Labs** | Available |
+## / HOW TO USE
 
----
+1. Choose a platform section and open a challenge.
+2. Follow the methodology and technical notes.
+3. Review the key findings and lessons learned.
+4. Use the references to explore concepts further.
 
-## 📖 How to Use This Repository
+Write-ups are learning notes. Challenge environments, tools, and exact steps can change, so always validate details in your own authorized lab.
 
-1. **Browse by Platform**: Navigate to the platform-specific folders
-2. **Search by Topic**: Use GitHub's search feature to find write-ups by vulnerability type
-3. **Read the Walkthroughs**: Each write-up includes:
-   - Challenge description
-   - Enumeration process
-   - Vulnerability analysis
-   - Exploitation steps
-   - Remediation advice
+## / LEARNING ROADMAP
 
----
+- [x] Build a foundation through TryHackMe rooms and guided labs
+- [ ] Continue practising web security with PortSwigger Web Security Academy
+- [ ] Expand hands-on practice with Hack The Box
+- [ ] Document more Windows and Active Directory labs
+- [ ] Build and test a personal lab environment
+- [ ] Add more focused notes on detection, investigation, and remediation
 
+## / DISCLAIMER
 
-### File Structure
-```
-Write-Ups/
-├── TryHackMe/
-│   ├── Agent-T.md
-│   ├── RootMe-CTF-WriteUp.md
-│   └── ToolsRus-CTF.md
-├── HackTheBox/
-│   └── Challenge-Name.md
-├── PortSwigger/
-│   └── Lab-Name.md
-└── OtherLabs/
-    └── Lab-Name.md
-```
+All material in this repository is shared for **educational purposes** and is based on CTFs, intentionally vulnerable systems, and environments where testing is authorized.
 
+Only test systems that you own or have explicit permission to assess. Do not use these notes to access or disrupt systems without authorization.
 
+## / CONNECT
 
-## Roadmap
+<div align="center">
 
-- First we will start from TryHackMe because it is a beggienr friendly 
-- Then we will move to the Portswigger Web security Academy because it's completetly free and the best resource for learning web security
-- Then we will move to the HackTheBox because it features advance labs and techniques and also it is paid
-- Then we will move to the other labs such as Pico CTF and OWASP Juice Shop 
-- Then we will move toward the home lab setup for real world attack because we don't have authority to attack a target to whom we have not the permission so we will perform all of them attacks on the authorized lab setup 
----
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Muhammad%20Zaid-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/muhammad-zaid2009/)
+[![TryHackMe](https://img.shields.io/badge/TryHackMe-muhammadzaid2009-C11111?style=flat-square&logo=tryhackme)](https://tryhackme.com/p/muhammadzaid2009)
+[![GitHub](https://img.shields.io/badge/GitHub-muhammadzaid2009--sudo-181717?style=flat-square&logo=github)](https://github.com/muhammadzaid2009-sudo)
+[![Medium](https://img.shields.io/badge/Medium-Articles-000000?style=flat-square&logo=medium)](https://medium.com/@muhammadzaid2009)
 
-## ⚖️ Disclaimer
-
-All activities documented in this repository are intended for **authorized educational environments only**, including:
-- Official CTF competitions
-- Authorized security labs and training programs
-- Personal authorized testing environments
-- Academic coursework with proper authorization
-
-**⚠️ Unauthorized access to computer systems is illegal.** Always obtain proper authorization before conducting any security testing.
-
----
-
-## 📞 Connect With Me
-
-- 💼 **LinkedIn**: [Muhammad Zaid](https://www.linkedin.com/in/muhammad-zaid2009/)
-- 🎯 **TryHackMe**: [muhammadzaid2009](https://tryhackme.com/p/muhammadzaid2009)
-- ✍️ **Medium**: [@muhammadzaid2009](https://medium.com/@muhammadzaid2009)
-- 🐙 **GitHub**: [muhammadzaid2009-sudo](https://github.com/muhammadzaid2009-sudo)
-
----
-
-## 📜 License
-
-This repository is licensed under the **MIT License** - see the [LICENSE](./LICENSE) file for details.
+</div>
 
 ---
 
 <div align="center">
 
-**⭐ If you find these write-ups helpful, please consider giving this repo a star!**
+**Built while learning. Updated as I learn more.**
 
-*Auto-updated by GitHub Actions | Last Update: 2024*
+<sub>If these notes help you, consider leaving a ⭐ on the repository.</sub>
 
 </div>
